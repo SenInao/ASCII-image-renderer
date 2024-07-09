@@ -1,5 +1,5 @@
 from PIL import Image
-from frameConverter import convertFrame
+from imageToAscii import convertFrame
 import os
 
 path = input("path to image: ")

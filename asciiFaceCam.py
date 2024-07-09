@@ -1,14 +1,8 @@
 from PIL import Image
-from frameConverter import convertFrame
+from imageToAscii import convertFrame
 import cv2
 import os
 import sys
-
-path = input("path to video: ")
-
-if (not os.path.isfile(path)):
-    print("file not found")
-    os._exit(0)
 
 shouldHaveColour = input("render with colour? Y/N: ").lower()
 
@@ -17,7 +11,7 @@ if (shouldHaveColour == "y"):
 else:
     shouldHaveColour = False
 
-cam = cv2.VideoCapture(path)
+cam = cv2.VideoCapture(0)
 
 convertedFrames = []
 while(True):
