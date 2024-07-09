@@ -5,17 +5,19 @@ def colorizedText(char, rgb) -> str:
 
 def modifyFrame(frame: Image.Image) -> Image.Image:
     frame = frame.convert("L")
-    frame = frame.quantize(colors=LIGHTLEVELS)
+    frame = frame.quantize(colors=LIGHT_LEVELS)
     return frame
     
 
 def convertFrame(frame: Image.Image, shouldHaveColour: bool) -> str:
-    frame = frame.resize((IMAGEX, IMAGEY))
+    downscaledWidth = int(frame.size[0]/DOWNSCALE_LEVEL)
+    downscaledHeight = int(frame.size[1]/DOWNSCALE_LEVEL)
+    frame = frame.resize((downscaledWidth, downscaledHeight))
     modifiedFrame = modifyFrame(frame)
     renderedAscii = ""
 
-    for y in range(IMAGEY):
-        for x in range(IMAGEX):
+    for y in range(downscaledHeight):
+        for x in range(downscaledWidth):
     
             gradient = modifiedFrame.getpixel((x, y))
             char = chr(asciiChars[gradient]) * 2
@@ -30,7 +32,6 @@ def convertFrame(frame: Image.Image, shouldHaveColour: bool) -> str:
 
 asciiChars = [64, 37, 35, 42, 43, 61, 45, 58, 46, 32]
 ENDC = "\033[0m"
-IMAGEX = 120
-IMAGEY = 80
-LIGHTLEVELS = 10
+DOWNSCALE_LEVEL = 6
+LIGHT_LEVELS = 10
 
